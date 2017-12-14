@@ -105,7 +105,7 @@ public class FilmDAO {
 	   //openConnection();
 	   try {
 		   int max = getMaxId();
-		   System.out.println("ID given to "+max+1);
+		   System.out.println("ID given to "+(max+1));
 		   openConnection();
 		   String insertSQL = "INSERT INTO films_proj VALUES (" + (max+1) + ",\""
 				   + film.getTitle() + "\"," +film.getYear() + ",\"" +film.getDirector()
@@ -125,9 +125,9 @@ public class FilmDAO {
 		try {
 
 
-			String selectSQL = "DELETE FROM films_proj where id = " + id;
-			//System.out.println(selectSQL);
-			int rs1 = stmt.executeUpdate(selectSQL);
+			String deleteSQL = "DELETE FROM films_proj where id = " + id;
+			//System.out.println(deleteSQL);
+			int rs1 = stmt.executeUpdate(deleteSQL);
 			// Retrieve the results
 
 
