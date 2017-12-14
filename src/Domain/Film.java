@@ -2,7 +2,7 @@ package Domain;
 
 public class Film {
 	
-	private int ID;
+	private int id;
 	private String title;
 	private int year;
 	private String director;
@@ -10,8 +10,8 @@ public class Film {
 	private String credits;
 	private String review;
 	
-	public Film(int iD, String title, int year, String director, int duration, String credits, String review) {
-		ID = iD;
+	public Film(int id, String title, int year, String director, int duration, String credits, String review) {
+		this.id = id;
 		this.title = title;
 		this.year = year;
 		this.credits = credits;
@@ -19,9 +19,19 @@ public class Film {
 		this.review = review;
 		this.director = director;
 	}
-	
-	public int getID() {return ID;}
-	public void setID(int iD) {ID = iD;}
+
+	public Film(String title, int year, String director, int duration, String credits, String review) {
+		this.id = 0;
+		this.title = title;
+		this.year = year;
+		this.director = director;
+		this.duration = duration;
+		this.credits = credits;
+		this.review = review;
+	}
+
+	public int getId() {return id;}
+	public void setId(int id) {id = id;}
 	
 	public String getTitle() {return title;}
 	public void setTitle(String name) {this.title = name;}
@@ -44,7 +54,7 @@ public class Film {
 	@Override
 	public String toString() {
 		return "Film{" +
-				"ID=" + ID +
+				"id=" + id +
 				", title='" + title + '\'' +
 				", year=" + year +
 				", director='" + director + '\'' +

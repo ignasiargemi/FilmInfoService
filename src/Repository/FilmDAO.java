@@ -66,7 +66,7 @@ public class FilmDAO {
 		
 	    // Create select statement and execute it
 		try{
-		    String selectSQL = "select * from films_proj";
+		    String selectSQL = "select * from films_proj limit 50";
 		    ResultSet rs1 = stmt.executeQuery(selectSQL);
 	    // Retrieve the results
 		    while(rs1.next()){
@@ -102,15 +102,16 @@ public class FilmDAO {
    }
 
    public void addFilm(Film film) {
-	   openConnection();
+	   //openConnection();
 	   try {
-
-
-		   String selectSQL = "INSERT INTO films_proj VALUES (" + film.getID() + ",\""
+		   int max = getMaxId();
+		   System.out.println("ID given to "+max+1);
+		   openConnection();
+		   String insertSQL = "INSERT INTO films_proj VALUES (" + (max+1) + ",\""
 				   + film.getTitle() + "\"," +film.getYear() + ",\"" +film.getDirector()
 				   + "\"," +film.getDuration()+ ",\"" +film.getCredits()+ "\",\"" +film.getReview()+ "\")";
-		   //System.out.println(selectSQL);
-		   int rs1 = stmt.executeUpdate(selectSQL);
+		   //System.out.println(insertSQL);
+		   int rs1 = stmt.executeUpdate(insertSQL);
 		   // Retrieve the results
 
 
@@ -118,8 +119,41 @@ public class FilmDAO {
 		   closeConnection();
 	   } catch (SQLException se){System.out.println(se);}
    }
+
+	public void deleteFilmByID(int id) {
+		openConnection();
+		try {
+
+
+			String selectSQL = "DELETE FROM films_proj where id = " + id;
+			//System.out.println(selectSQL);
+			int rs1 = stmt.executeUpdate(selectSQL);
+			// Retrieve the results
+
+
+			stmt.close();
+			closeConnection();
+		} catch (SQLException se){System.out.println(se);}
+	}
    
-   
-   
+   	private int getMaxId() {
+		openConnection();
+		int max = 0;
+		// Create select statement and execute it
+		try{
+			String selectSQL = "select max(id) from films_proj";
+			ResultSet rs1 = stmt.executeQuery(selectSQL);
+			// Retrieve the results
+			while(rs1.next()){
+				max = rs1.getInt(1);
+			}
+
+			stmt.close();
+			closeConnection();
+			return max;
+		} catch(SQLException se) { System.out.println(se); }
+
+   		return 0;
+	}
    
 }

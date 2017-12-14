@@ -16,26 +16,30 @@ public class main {
 		 *Use of listFilm()
 		*/
 		ArrayList<Film> filmsCollection = filmDAO.getAllFilms();
-		for (Film f: filmsCollection) {
-			//System.out.println(f.toString());
-		}
+/*		for (Film f: filmsCollection) {
+			System.out.println(f.toString());
+		}*/
 		System.out.println();
 		System.out.println();
 		/**
 		 *Use of searchFilm()
 		*/
-		Film f = filmDAO.getFilmByID(10001);
-		//System.out.println(f.toString());
+		Film f = filmDAO.getFilmByID(0);
+		System.out.println(f.toString());
+        System.out.println();
 
 		/**
 		 *Adding a new Film()
 		 */
-		f = new Film(1,"Hehe", 100, "Clean is good", 120, "Credits", "Good");
+		f = new Film("Hehe", 100, "Clean is good", 120, "Credits", "Good");
 		filmDAO.addFilm(f);
+        System.out.println();
 		f = null;
-		f = filmDAO.getFilmByID(1);
+		f = filmDAO.getFilmByID(1310);
 		System.out.println(f.toString());
 		System.out.println();
+		filmDAO.deleteFilmByID(1310);
+
 		System.out.println("FINAL");
 	}
 }
