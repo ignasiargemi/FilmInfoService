@@ -31,7 +31,8 @@ public class main {
                 System.out.println("Enter a number: ");
                 int number = reader.nextInt();
                 Film f = filmDAO.getFilmByID(number);
-                System.out.println(f.toString());
+                if (f != null) System.out.println(f.toString());
+                else System.out.println("This film does NOT exist");
             }
             else if (option == 2) {
                 System.out.println("ADD FILM");

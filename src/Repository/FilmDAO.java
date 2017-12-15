@@ -38,6 +38,27 @@ public class FilmDAO {
 		}
 	}
 
+	public boolean IdExists(int id) {
+		openConnection();
+		int num = 0;
+		try{
+			String selectSQL = "select count(*) from films_proj where id="+id;
+			ResultSet rs1 = stmt.executeQuery(selectSQL);
+			// Retrieve the results
+			while(rs1.next()){
+				num = rs1.getInt(1);
+			}
+
+			stmt.close();
+			closeConnection();
+			if (num > 0) return true;
+			else return false;
+		} catch(SQLException se) {
+			System.out.println(se);
+			return false;
+		}
+	}
+
 	private Film getNextFilm(ResultSet rs){
     	Film thisFilm=null;
 		try {
@@ -87,6 +108,10 @@ public class FilmDAO {
 		oneFilm=null;
 	    // Create select statement and execute it
 		try{
+			if (!IdExists(id)) {
+				closeConnection();
+				return null;
+			}
 		    String selectSQL = "select * from films_proj where id="+id;
 		    ResultSet rs1 = stmt.executeQuery(selectSQL);
 	    // Retrieve the results
