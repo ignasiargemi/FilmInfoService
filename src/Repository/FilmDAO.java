@@ -1,7 +1,6 @@
 package Repository;
 
 import Domain.Film;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -115,7 +114,6 @@ public class FilmDAO {
             // Retrieve the results
             while(rs1.next()){
                 num = rs1.getInt(1);
-                System.out.println(num);
             }
 
             stmt.close();
@@ -129,19 +127,14 @@ public class FilmDAO {
     }
 
    public void addFilm(Film film) {
-	   //openConnection();
 	   try {
 		   int max = getMaxId();
-		   System.out.println("ID given to "+(max+1));
 		   openConnection();
 		   String insertSQL = "INSERT INTO films_proj VALUES (" + (max+1) + ",\""
 				   + film.getTitle() + "\"," +film.getYear() + ",\"" +film.getDirector()
 				   + "\"," +film.getDuration()+ ",\"" +film.getCredits()+ "\",\"" +film.getReview()+ "\")";
-		   //System.out.println(insertSQL);
 		   int rs1 = stmt.executeUpdate(insertSQL);
-		   // Retrieve the results
-
-
+		   if (rs1 == 1) System.out.println("Given ID is "+(max+1));
 		   stmt.close();
 		   closeConnection();
 	   } catch (SQLException se){System.out.println(se);}
@@ -153,8 +146,8 @@ public class FilmDAO {
 
 
 			String deleteSQL = "DELETE FROM films_proj where id = " + id;
-			//System.out.println(deleteSQL);
 			int rs1 = stmt.executeUpdate(deleteSQL);
+			if (rs1 == 1) System.out.println("Row deleted!");
 			// Retrieve the results
 
 
