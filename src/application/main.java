@@ -1,6 +1,7 @@
 package application;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import Domain.Film;
@@ -13,7 +14,7 @@ public class main {
 		FilmDAO filmDAO = new FilmDAO();
         System.out.println("MENU");
         System.out.println("OPTION 0: GET ALL FILMS (LIMITED TO 50)");
-        System.out.println("OPTION 1: GET FILMS BY ID");
+        System.out.println("OPTION 1: GET FILMS BY TITLE");
         System.out.println("OPTION 2: ADD FILM");
         System.out.println("OPTION 3: DELETE FILM BY ID");
         System.out.println("ANY OTHER NUMBER WILL INTERRUPT THE EXECUTION");
@@ -27,12 +28,12 @@ public class main {
                 for (Film f: filmsCollection) System.out.println(f.toString());
             }
             else if (option == 1) {
-                System.out.println("PRINT FILM BY ID");
-                System.out.println("Enter a number: ");
-                int number = reader.nextInt();
-                Film f = filmDAO.getFilmByID(number);
-                if (f != null) System.out.println(f.toString());
-                else System.out.println("This film does NOT exist");
+                System.out.println("PRINT FILM BY TITLE");
+                System.out.println("Enter a word: ");
+                String name = reader.next();
+                ArrayList<Film> filmsCollection = filmDAO.getFilmByTitle(name);
+                if (filmsCollection != null) for (Film f: filmsCollection) System.out.println(f.toString());
+                else System.out.println("This/These film(s) does NOT exist");
             }
             else if (option == 2) {
                 System.out.println("ADD FILM");
