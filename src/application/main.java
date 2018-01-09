@@ -15,13 +15,15 @@ public class main {
         System.out.println("MENU");
         System.out.println("OPTION 0: GET ALL FILMS (LIMITED TO 50)");
         System.out.println("OPTION 1: GET FILMS BY TITLE");
-        System.out.println("OPTION 2: ADD FILM");
-        System.out.println("OPTION 3: DELETE FILM BY ID");
+        System.out.println("OPTION 2: GET FILMS BY ID");
+        System.out.println("OPTION 3: ADD FILM");
+        System.out.println("OPTION 4: UPDATE FILM BY ID");
+        System.out.println("OPTION 5: DELETE FILM BY ID");
         System.out.println("ANY OTHER NUMBER WILL INTERRUPT THE EXECUTION");
         System.out.print("ENTER AN OPTION: ");
         Scanner reader = new Scanner(System.in);
         int option = reader.nextInt();
-		while (option >= 0 && option <= 3) {
+		while (option >= 0 && option <= 4) {
 		    if (option == 0) {
                 System.out.println("PRINT ALL FILMS");
                 ArrayList<Film> filmsCollection = filmDAO.getAllFilms();
@@ -36,6 +38,13 @@ public class main {
                 else System.out.println("This/These film(s) does NOT exist");
             }
             else if (option == 2) {
+                System.out.println("PRINT FILM BY ID");
+                System.out.println("Enter the ID: ");
+                int id = reader.nextInt();
+                Film film = filmDAO.getFilmByID(id);
+                System.out.println(film.toString());
+            }
+            else if (option == 3) {
                 System.out.println("ADD FILM");
                 System.out.println("Add the parameters:");
                 System.out.print("title: "); String title = reader.next();
@@ -47,7 +56,23 @@ public class main {
                 Film f = new Film(title,year,director,duration,credits,review);
                 filmDAO.addFilm(f);
             }
-            else if (option == 3){
+            else if (option == 4) {
+            	System.out.println("UPDATE FILM BY ID");
+                System.out.println("Enter the ID: ");
+                int id = reader.nextInt();
+                Film film = filmDAO.getFilmByID(id);
+                System.out.println(film.toString());
+                System.out.println("Add film parameters:");
+                System.out.print("title: "); String title = reader.next();
+                System.out.print("year: "); int year = reader.nextInt();
+                System.out.print("director: "); String director = reader.next();
+                System.out.print("duration: "); int duration = reader.nextInt();
+                System.out.print("credits: "); String credits = reader.next();
+                System.out.print("review: "); String review = reader.next();
+                Film f = new Film(id,title,year,director,duration,credits,review);
+                filmDAO.updateFilm(f);
+            }
+            else if (option == 5){
                 System.out.println("DELETE FILM BY");
                 System.out.println("Enter the id of the film you want to delete");
                 int id = reader.nextInt();

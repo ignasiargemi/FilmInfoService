@@ -193,5 +193,28 @@ public class FilmDAO {
 
    		return 0;
 	}
+
+
+	public void updateFilm(Film film) {
+		 try {
+		   openConnection();
+		   String updateSQL = "UPDATE films_proj SET title = \"" + film.getTitle() + "\" where id = " + film.getId();
+		   stmt.executeUpdate(updateSQL);
+		   updateSQL = "UPDATE films_proj SET year = " + film.getYear() + " where id = " + film.getId();
+		   stmt.executeUpdate(updateSQL);
+		   updateSQL = "UPDATE films_proj SET director = \"" + film.getDirector() + "\" where id = " + film.getId();
+		   stmt.executeUpdate(updateSQL);
+		   updateSQL = "UPDATE films_proj SET duration = " + film.getDuration() + " where id = " + film.getId();
+		   stmt.executeUpdate(updateSQL);
+		   updateSQL = "UPDATE films_proj SET credits = \"" + film.getCredits() + "\" where id = " + film.getId();
+		   stmt.executeUpdate(updateSQL);
+		   updateSQL = "UPDATE films_proj SET review = \"" + film.getReview() + "\" where id = " + film.getId();
+		   stmt.executeUpdate(updateSQL);
+		   
+		   stmt.close();
+		   closeConnection();
+		   System.out.println("Film UPDATED!");
+	   } catch (SQLException se){System.out.println(se);}		
+	}
    
 }
