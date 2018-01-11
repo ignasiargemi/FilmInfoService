@@ -23,7 +23,7 @@ public class main {
         System.out.print("ENTER AN OPTION: ");
         Scanner reader = new Scanner(System.in);
         int option = reader.nextInt();
-		while (option >= 0 && option <= 4) {
+		while (option >= 0 && option <= 5) {
 		    if (option == 0) {
                 System.out.println("PRINT ALL FILMS");
                 ArrayList<Film> filmsCollection = filmDAO.getAllFilms();
