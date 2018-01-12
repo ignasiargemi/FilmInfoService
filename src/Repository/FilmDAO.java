@@ -28,7 +28,7 @@ public class FilmDAO {
     }
 	
 	/**
-	 * This funtion closes the connection to the MySQL DB
+	 * This function closes the connection to the MySQL DB
 	 */
 	private void closeConnection(){
 		try {
