@@ -47,14 +47,20 @@ public class main {
             else if (option == 3) {
                 System.out.println("ADD FILM");
                 System.out.println("Add the parameters:");
-                System.out.print("title: "); String title = reader.next();
-                System.out.print("year: "); int year = reader.nextInt();
-                System.out.print("director: "); String director = reader.next();
-                System.out.print("duration: "); int duration = reader.nextInt();
-                System.out.print("credits: "); String credits = reader.next();
-                System.out.print("review: "); String review = reader.next();
-                Film f = new Film(title,year,director,duration,credits,review);
-                filmDAO.addFilm(f);
+                try {
+		            System.out.print("title: "); String title = reader.next();
+		            System.out.print("year: "); int year = reader.nextInt();
+		            System.out.print("director: "); String director = reader.next();
+		            System.out.print("duration: "); int duration = reader.nextInt();
+		            System.out.print("credits: "); String credits = reader.next();
+		            System.out.print("review: "); String review = reader.next();
+		            Film f = new Film(title,year,director,duration,credits,review);
+		            filmDAO.addFilm(f);
+		           
+                } catch (Exception e) {
+                	System.out.println("There has been an error while introducing a parametre:");
+                	System.out.println(e);
+                }
             }
             else if (option == 4) {
             	System.out.println("UPDATE FILM BY ID");
@@ -63,14 +69,20 @@ public class main {
                 Film film = filmDAO.getFilmByID(id);
                 System.out.println(film.toString());
                 System.out.println("Add film parameters:");
-                System.out.print("title: "); String title = reader.next();
-                System.out.print("year: "); int year = reader.nextInt();
-                System.out.print("director: "); String director = reader.next();
-                System.out.print("duration: "); int duration = reader.nextInt();
-                System.out.print("credits: "); String credits = reader.next();
-                System.out.print("review: "); String review = reader.next();
-                Film f = new Film(id,title,year,director,duration,credits,review);
-                filmDAO.updateFilm(f);
+                try {
+		            System.out.print("title: "); String title = reader.next();
+		            System.out.print("year: "); int year = reader.nextInt();
+		            System.out.print("director: "); String director = reader.next();
+		            System.out.print("duration: "); int duration = reader.nextInt();
+		            System.out.print("credits: "); String credits = reader.next();
+		            System.out.print("review: "); String review = reader.next();
+		            Film f = new Film(title,year,director,duration,credits,review);
+		            filmDAO.updateFilm(f);
+		           
+                } catch (Exception e) {
+                	System.out.println("There has been an error while introducing a parametre:");
+                	System.out.println(e);
+                }
             }
             else if (option == 5){
                 System.out.println("DELETE FILM BY");

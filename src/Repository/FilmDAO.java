@@ -13,30 +13,34 @@ public class FilmDAO {
 
 	public FilmDAO() {}
 
-	
+	/**
+	 * This function opens the connection to the MySQL DB
+	 */
 	private void openConnection(){
-		// loading jdbc driver for mysql
 		try{
 		    Class.forName("com.mysql.jdbc.Driver").newInstance();
 		} catch(Exception e) { System.out.println(e); }
-
-		// connecting to database
 		try{
-			// connection string for demos database, username demos, password demos
 		    conn = DriverManager.getConnection
 	        ("jdbc:mysql://mudfoot.doc.stu.mmu.ac.uk:3306/puigi?user=puigi&password=Blefrowy6");
 		    stmt = conn.createStatement();
 		} catch(SQLException se) { System.out.println(se); }	   
     }
+	
+	/**
+	 * This funtion closes the connection to the MySQL DB
+	 */
 	private void closeConnection(){
 		try {
 			conn.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Assistant function to transform the retrieved data into Film Java Objects
+	 */
 	private Film getNextFilm(ResultSet rs){
     	Film thisFilm=null;
 		try {
@@ -50,24 +54,23 @@ public class FilmDAO {
 					rs.getString("review")
 			);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     	return thisFilm;		
 	}
 	
 	
-	
-   public ArrayList<Film> getAllFilms(){
+	/**
+	 * Function to get All the films in an ArrayList
+	 */
+	public ArrayList<Film> getAllFilms(){
 	   
 		ArrayList<Film> allFilms = new ArrayList<Film>();
 		openConnection();
 		
-	    // Create select statement and execute it
-		try{
+	   	try{
 		    String selectSQL = "select * from films_proj limit 50";
 		    ResultSet rs1 = stmt.executeQuery(selectSQL);
-	    // Retrieve the results
 		    while(rs1.next()){
 		    	oneFilm = getNextFilm(rs1);
 		    	allFilms.add(oneFilm);
@@ -78,16 +81,17 @@ public class FilmDAO {
 		} catch(SQLException se) { System.out.println(se); }
 
 	   return allFilms;
-   }
-
+	}
+	
+	/**
+	 * This function returns an arraylist of the films searched with a certain filter
+	 */
 	public ArrayList<Film> getFilmByTitle(String name){
 		ArrayList<Film> allFilms = new ArrayList<Film>();
-		// Create select statement and execute it
 		try{
 			openConnection();
 			String selectSQL = "select * from films_proj where title like \"%" + name + "%\"";
 			ResultSet rs1 = stmt.executeQuery(selectSQL);
-			// Retrieve the results
 			while(rs1.next()){
 				oneFilm = getNextFilm(rs1);
 				allFilms.add(oneFilm);
@@ -100,18 +104,18 @@ public class FilmDAO {
 		return allFilms;
 	}
 
-   public Film getFilmByID(int id){
+	/**
+	 * This function returns a Film object with a certain ID introduced by the USER
+	 */
+	public Film getFilmByID(int id){
 		oneFilm=null;
-	    // Create select statement and execute it
 		try{
 			if (!IdExists(id)) {
-				//closeConnection();
 				return null;
 			}
             openConnection();
 		    String selectSQL = "select * from films_proj where id="+id;
 		    ResultSet rs1 = stmt.executeQuery(selectSQL);
-	    // Retrieve the results
 		    while(rs1.next()){
 		    	oneFilm = getNextFilm(rs1);
 		    }
@@ -121,8 +125,11 @@ public class FilmDAO {
 		} catch(SQLException se) { System.out.println(se); }
 
 	   return oneFilm;
-   }
-
+	}
+	
+	/**
+	 * This assistant function checks if there's a film with the ID introduced by the user
+	 */
     private boolean IdExists(int id) {
         openConnection();
         int num = 0;
@@ -143,8 +150,11 @@ public class FilmDAO {
         if (num > 0) return true;
         else return false;
     }
-
-   public void addFilm(Film film) {
+    
+    /**
+	 * This function adds a film into the DB
+	 */
+    public void addFilm(Film film) {
 	   try {
 		   int max = getMaxId();
 		   openConnection();
@@ -156,8 +166,11 @@ public class FilmDAO {
 		   stmt.close();
 		   closeConnection();
 	   } catch (SQLException se){System.out.println(se);}
-   }
-
+    }
+    
+    /**
+	 * This function deletes the film with the ID introduced by the user
+	 */
 	public void deleteFilmByID(int id) {
 		openConnection();
 		try {
@@ -173,7 +186,10 @@ public class FilmDAO {
 			closeConnection();
 		} catch (SQLException se){System.out.println(se);}
 	}
-   
+	
+	/**
+	 * This assistant function returns the max ID in the DB
+	 */
    	private int getMaxId() {
 		openConnection();
 		int max = 0;
@@ -193,8 +209,10 @@ public class FilmDAO {
 
    		return 0;
 	}
-
-
+   	
+   	/**
+	 * This function UPDATES a film
+	 */
 	public void updateFilm(Film film) {
 		 try {
 		   openConnection();
